@@ -43,20 +43,23 @@ end
 npc_data = {
 	{
 		sprite=6, x=10*8, y=3*8,
-		question="what color is the sky?",
-		answers={"blue","green","red"
+		question="how many ebm can the?",
+		question_2="9px use by default",
+		answers={"4","2","6"
 		},
 		correct=1
 	},
 	{
 		sprite=7, x=4*8, y=9*8,
 		question="2 + 2 = ?",
+		question_2="",
 		answers={"1","4","3"},
 		correct=2
 	},	
 	{
 		sprite=8, x=9*8, y=10*8,
 		question="are cats the best?",
+		question_2="",
 		answers={"yes","no","unsure"},
 		correct=1 
 	}
@@ -103,7 +106,8 @@ function init_npcs()
 			attacking = false,
 			drop_item = 1, 
 			visible = true,
-			question = npc.question,
+			question_1 = npc.question,
+			question_2 = npc.question_2,
 			answers = npc.answers,
 			correct = npc.correct
 			})
@@ -190,7 +194,8 @@ function update_npcs()
 				npc.attacking = true
 				game_state = "combat"
 				current_enemy = npc
-				combat_question = npc.question
+				combat_question_1 = npc.question_1
+				combat_question_2 = npc.question_2
 				choices = {npc.answers[1], npc.answers[2], npc.answers[3], "quit"}
 				correct_choice = npc.correct
 				selected = 1
@@ -337,7 +342,9 @@ function draw_combat_screen()
  rectfill(bubble_x0, bubble_y0, bubble_x1, bubble_y1, 7)
  rect(bubble_x0, bubble_y0, bubble_x1, bubble_y1, 0)
 
-	print(combat_question,bubble_x0 + 4, bubble_y0+6, 0)
+	print(combat_question_1,bubble_x0 + 4, bubble_y0+6, 0)
+	print(combat_question_2,bubble_x0 + 4, bubble_y0+12, 0)
+
 	
 	if feedback and #feedback > 0 then
 		print(feedback, bubble_x0 + 4, bubble_y1 + 6, 11)
